@@ -108,7 +108,7 @@ console.log(Utileria.calcularIMC(90, 1.70));  // "31.14 - Obesidad"
 
 ---
 
-## 📸 Capturas de pantalla
+##  Capturas de pantalla
 
 ### Captura 1: Validaciones en consola
 ![Captura 1](img/captura1.png)
