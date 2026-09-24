@@ -1,9 +1,9 @@
 # Utileria JS
 
-**Autor:** [Gallardo Vasquez Perla Danae]  
+**Autor:** Gallardo Vasquez Perla Danae  
 **Materia:** Programación Web  
-**Repositorio:** [https://github.com/tu-usuario/utileria](https://github.com/tu-usuario/utileria)  
-**Demo en vivo:** [https://tu-usuario.github.io/utileria/](https://tu-usuario.github.io/utileria/)
+**Repositorio:** [https://github.com/tu-usuario/utileria](https://github.com/PerlaD391/Actividad_2)  
+**Demo en vivo:** [https://tu-usuario.github.io/utileria/](https://perlad391.github.io/Actividad_2/)
 
 ---
 
@@ -170,6 +170,6 @@ Este proyecto es de uso libre para fines académicos y personales.
 
 ##  Autor
 
-**[Gallardo Vasquez Perla Danae]**  
-Estudiante de [Ingenieria en sistemas computacionales] 
-[21160634@itoaxaca.edu.mx]
+**Gallardo Vasquez Perla Danae**  
+Estudiante de Ingenieria en sistemas computacionales
+21160634@itoaxaca.edu.mx
