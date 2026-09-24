@@ -111,20 +111,20 @@ console.log(Utileria.calcularIMC(90, 1.70));  // "31.14 - Obesidad"
 ##  Capturas de pantalla
 
 ### Captura 1: Validaciones en consola
-![Captura 1](img/captura1.png)
+![Captura 1](img/img2.png)
 
-### Captura 2: Cálculos (edad e IMC)
-![Captura 2](img/captura2.png)
-
-### Captura 3: Formulario funcionando
-![Captura 3](img/captura3.png)
+### Captura 2: Formulario funcionando
+![Captura 2](img/img1.png)
+![Captura 3](img/img3.png)
 
 ### Captura 4: Login funcionando
-![Captura 4](img/captura4.png)
+![Captura 4](img/img4.png)
+![Captura 5](img/img5.png)
+
 
 ---
 
-## 🎥 Video demo
+## Video demo
 
 [Ver video en YouTube](https://youtu.be/TU-VIDEO-AQUI)
 
