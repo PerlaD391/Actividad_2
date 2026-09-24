@@ -2,8 +2,8 @@
 
 **Autor:** Gallardo Vasquez Perla Danae  
 **Materia:** Programación Web  
-**Repositorio:** [https://github.com/tu-usuario/utileria](https://github.com/PerlaD391/Actividad_2)  
-**Demo en vivo:** [https://tu-usuario.github.io/utileria/](https://perlad391.github.io/Actividad_2/)
+**Repositorio:** [https://github.com/PerlaD391/Actividad_2](https://github.com/PerlaD391/Actividad_2)  
+**Demo en vivo:** [https://perlad391.github.io/Actividad_2/](https://perlad391.github.io/Actividad_2/)
 
 ---
 
@@ -117,7 +117,7 @@ console.log(Utileria.calcularIMC(90, 1.70));  // "31.14 - Obesidad"
 ![Captura 2](img/img1.png)
 ![Captura 3](img/img3.png)
 
-### Captura 4: Login funcionando
+### Captura 3: Login funcionando
 ![Captura 4](img/img4.png)
 ![Captura 5](img/img5.png)
 
