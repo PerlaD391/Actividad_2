@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Utileria JS - Formulario</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <div class="contenedor">
+        <h1>Formulario de Registro</h1>
+        <p class="subtitulo">Usa la librería Utileria para validar tus datos y calcular tu IMC.</p>
+
+        <form id="formulario">
+            <div class="grupo-formulario">
+                <label for="nombre">Nombre completo</label>
+                <input type="text" id="nombre" placeholder="Ej: Juan Pérez" autocomplete="off">
+            </div>
+
+            <div class="grupo-formulario">
+                <label for="correo">Correo electrónico</label>
+                <input type="text" id="correo" placeholder="Ej: juan@correo.com" autocomplete="off">
+            </div>
+
+            <div class="grupo-formulario">
+                <label for="telefono">Teléfono (10 dígitos)</label>
+                <input type="text" id="telefono" placeholder="Ej: 5512345678" autocomplete="off">
+            </div>
+
+            <div class="grupo-formulario">
+                <label for="fechaNacimiento">Fecha de nacimiento</label>
+                <input type="date" id="fechaNacimiento">
+            </div>
+
+            <div class="grupo-formulario">
+                <label for="peso">Peso (kg)</label>
+                <input type="text" id="peso" placeholder="Ej: 70" autocomplete="off">
+            </div>
+
+            <div class="grupo-formulario">
+                <label for="altura">Altura (m)</label>
+                <input type="text" id="altura" placeholder="Ej: 1.75" autocomplete="off">
+            </div>
+
+            <div class="grupo-formulario">
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" placeholder="Mín. 8 caracteres, mayúscula, número y símbolo">
+            </div>
+
+            <button type="button" class="boton" id="btnValidar">Validar y Ver Edad</button>
+
+            <p class="mensaje" id="mensaje"></p>
+        </form>
+
+        <a href="login.html" class="enlace">Ir al Login →</a>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal-contenido">
+            <h2>Resultados</h2>
+            <p id="textoEdad"></p>
+            <p id="textoIMC"></p>
+            <button type="button" class="boton" id="btnCerrarModal">Cerrar</button>
+        </div>
+    </div>
+
+    <script src="js/utileria.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const inputNombre = document.getElementById('nombre');
+            const inputCorreo = document.getElementById('correo');
+            const inputTelefono = document.getElementById('telefono');
+            const inputFecha = document.getElementById('fechaNacimiento');
+            const inputPeso = document.getElementById('peso');
+            const inputAltura = document.getElementById('altura');
+            const inputPassword = document.getElementById('password');
+            const btnValidar = document.getElementById('btnValidar');
+            const mensaje = document.getElementById('mensaje');
+
+            const modal = document.getElementById('modal');
+            const textoEdad = document.getElementById('textoEdad');
+            const textoIMC = document.getElementById('textoIMC');
+            const btnCerrarModal = document.getElementById('btnCerrarModal');
+
+            btnValidar.addEventListener('click', function () {
+                mensaje.textContent = '';
+                mensaje.className = 'mensaje';
+
+                const nombre = inputNombre.value.trim();
+                const correo = inputCorreo.value.trim();
+                const telefono = inputTelefono.value.trim();
+                const fecha = inputFecha.value;
+                const peso = parseFloat(inputPeso.value);
+                const altura = parseFloat(inputAltura.value);
+                const password = inputPassword.value;
+
+                if (nombre === '' || correo === '' || telefono === '' || fecha === '' || password === '' || isNaN(peso) || isNaN(altura)) {
+                    mensaje.textContent = 'Por favor, completa todos los campos.';
+                    mensaje.classList.add('mensaje-error');
+                    return;
+                }
+
+                if (!Utileria.soloLetras(nombre)) {
+                    mensaje.textContent = 'El nombre solo debe contener letras.';
+                    mensaje.classList.add('mensaje-error');
+                    return;
+                }
+
+                if (!Utileria.validarCorreo(correo)) {
+                    mensaje.textContent = 'El correo no tiene un formato válido.';
+                    mensaje.classList.add('mensaje-error');
+                    return;
+                }
+
+                if (!Utileria.validarLongitud(telefono, 10)) {
+                    mensaje.textContent = 'El teléfono debe tener máximo 10 dígitos.';
+                    mensaje.classList.add('mensaje-error');
+                    return;
+                }
+
+                if (!Utileria.validarPassword(password)) {
+                    mensaje.textContent = 'La contraseña debe tener mayúscula, minúscula, número, símbolo y mínimo 8 caracteres.';
+                    mensaje.classList.add('mensaje-error');
+                    return;
+                }
+
+                if (!Utileria.esMayorDeEdad(fecha)) {
+                    mensaje.textContent = 'Debes ser mayor de edad para registrarte.';
+                    mensaje.classList.add('mensaje-error');
+                    return;
+                }
+
+                mensaje.textContent = '¡Todo válido!';
+                mensaje.classList.add('mensaje-exito');
+
+                const edad = Utileria.calcularEdad(fecha);
+                const imc = Utileria.calcularIMC(peso, altura);
+
+                textoEdad.textContent = 'Tu edad es: ' + edad + ' años.';
+                textoIMC.textContent = 'Tu IMC es: ' + imc;
+                modal.classList.add('activo');
+
+                const usuariosGuardados = localStorage.getItem('usuariosRegistrados');
+                let usuarios = usuariosGuardados ? JSON.parse(usuariosGuardados) : [];
+
+                const existe = usuarios.find(function (u) {
+                    return u.correo === correo;
+                });
+
+                if (existe) {
+                    existe.password = password;
+                    existe.nombre = nombre;
+                } else {
+                    usuarios.push({
+                        correo: correo,
+                        password: password,
+                        nombre: nombre
+                    });
+                }
+
+                localStorage.setItem('usuariosRegistrados', JSON.stringify(usuarios));
+
+                console.log('Usuario registrado');
+                console.log('Nombre:', nombre);
+                console.log('Correo:', correo);
+                console.log('Teléfono formateado:', Utileria.formatearTelefono(telefono));
+                console.log('Edad:', edad);
+                console.log('IMC:', imc);
+                console.log('Usuarios guardados:', usuarios);
+            });
+
+            btnCerrarModal.addEventListener('click', function () {
+                modal.classList.remove('activo');
+            });
+
+        });
+    </script>
+</body>
+</html>
