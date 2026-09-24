@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Utileria JS - Login</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <div class="contenedor">
+        <h1>Iniciar Sesión</h1>
+        <p class="subtitulo">Valida tu correo y contraseña con Utileria.</p>
+
+        <form id="formularioLogin">
+            <div class="grupo-formulario">
+                <label for="correoLogin">Correo electrónico</label>
+                <input type="text" id="correoLogin" placeholder="Ej: juan@correo.com" autocomplete="off">
+            </div>
+
+            <div class="grupo-formulario">
+                <label for="passwordLogin">Contraseña</label>
+                <input type="password" id="passwordLogin" placeholder="Ingresa tu contraseña">
+            </div>
+
+            <button type="button" class="boton" id="btnLogin">Iniciar Sesión</button>
+
+            <p class="mensaje" id="mensajeLogin"></p>
+        </form>
+
+        <a href="index.html" class="enlace">← Volver al formulario</a>
+    </div>
+
+    <script src="js/utileria.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const inputCorreo = document.getElementById('correoLogin');
+            const inputPassword = document.getElementById('passwordLogin');
+            const btnLogin = document.getElementById('btnLogin');
+            const mensaje = document.getElementById('mensajeLogin');
+
+            btnLogin.addEventListener('click', function () {
+                mensaje.textContent = '';
+                mensaje.className = 'mensaje';
+
+                const correo = inputCorreo.value.trim();
+                const password = inputPassword.value;
+
+                if (correo === '' || password === '') {
+                    mensaje.textContent = 'Por favor, completa todos los campos.';
+                    mensaje.classList.add('mensaje-error');
+                    return;
+                }
+
+                if (!Utileria.validarCorreo(correo)) {
+                    mensaje.textContent = 'El correo no tiene un formato válido.';
+                    mensaje.classList.add('mensaje-error');
+                    return;
+                }
+
+                if (!Utileria.validarPassword(password)) {
+                    mensaje.textContent = 'La contraseña no cumple con los requisitos de seguridad.';
+                    mensaje.classList.add('mensaje-error');
+                    return;
+                }
+
+                const usuariosGuardados = localStorage.getItem('usuariosRegistrados');
+
+                if (!usuariosGuardados) {
+                    mensaje.textContent = 'No hay ningún usuario registrado. Primero regístrate en el formulario.';
+                    mensaje.classList.add('mensaje-error');
+                    return;
+                }
+
+                const usuarios = JSON.parse(usuariosGuardados);
+
+                const usuarioEncontrado = usuarios.find(function (u) {
+                    return u.correo === correo && u.password === password;
+                });
+
+                if (!usuarioEncontrado) {
+                    mensaje.textContent = 'Correo o contraseña incorrectos.';
+                    mensaje.classList.add('mensaje-error');
+                    return;
+                }
+
+                mensaje.textContent = '¡Inicio de sesión exitoso! Bienvenido, ' + usuarioEncontrado.nombre;
+                mensaje.classList.add('mensaje-exito');
+
+                console.log('Login exitoso para:', usuarioEncontrado.nombre);
+                console.log('Correo:', correo);
+            });
+
+        });
+    </script>
+</body>
+</html>
